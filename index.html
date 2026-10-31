@@ -1,63 +1,405 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b14">
-<title>SEMAG6 — Play something.</title>
+<title>Semag6 | Games</title>
+
 <style>
-:root{--bg:#090b14;--panel:#121626;--line:#272e45;--text:#f4f5ff;--muted:#9aa3bd;--purple:#8c72ff;--cyan:#55e4d2}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#29204e 0%,transparent 48%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}
-header{max-width:1150px;margin:auto;padding:25px 24px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:950;letter-spacing:-2px;font-size:27px}.logo span{color:var(--purple)}.topnote{font-size:12px;color:var(--muted);letter-spacing:2px}
-main{max-width:1150px;margin:auto;padding:35px 24px 80px}.hero{padding:46px 38px;border:1px solid #383052;border-radius:25px;background:linear-gradient(120deg,rgba(124,91,255,.22),rgba(37,202,190,.08)),#111525;position:relative;overflow:hidden}
-.hero:after{content:"6";position:absolute;right:55px;top:-65px;font-size:280px;font-weight:1000;color:#ffffff08;pointer-events:none}
-.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:3px}.hero h1{font-size:clamp(38px,7vw,68px);line-height:.98;letter-spacing:-3px;margin:15px 0}.hero p{color:#b9c0d5;max-width:480px;line-height:1.6;margin-bottom:25px}
-.pill{display:inline-flex;align-items:center;border:1px solid #4b426c;border-radius:99px;padding:9px 14px;color:#d8d0ff;font-size:12px;font-weight:700}
-.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:34px 0 20px;flex-wrap:wrap}.toolbar h2{font-size:22px;margin:0;letter-spacing:-.7px}
-input{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 15px;color:var(--text);font:inherit;outline:none;width:min(100%,260px)}input:focus{border-color:var(--purple)}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 13px;border-radius:99px;cursor:pointer;font-weight:700;font-size:12px}.filter.active{background:#30265a;border-color:#7963da;color:#fff}
-.empty{min-height:250px;border:1px dashed #343b55;border-radius:18px;background:#10142199;display:grid;place-items:center;text-align:center;padding:35px}
-.emptyicon{font-size:36px;margin-bottom:12px}.empty h3{margin:0 0 8px;font-size:18px}.empty p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;max-width:390px}
-footer{text-align:center;color:#69728b;font-size:11px;padding:30px}
-@media(max-width:600px){header{padding:18px}.topnote{display:none}main{padding:20px 16px 60px}.hero{padding:32px 23px}.hero:after{right:8px;font-size:190px}}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0b12;
+  color: #fff;
+  min-height: 100vh;
+}
+
+header {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  background: #11111c;
+  border-bottom: 1px solid #252538;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #a78bfa;
+}
+
+.logo span {
+  color: #fff;
+}
+
+.header-label {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.hero {
+  padding: 65px 7% 55px;
+  background: radial-gradient(ellipse at top, #29204d 0%, #11111c 65%);
+}
+
+.hero h1 {
+  font-size: clamp(38px, 7vw, 65px);
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.hero h1 span {
+  color: #a78bfa;
+}
+
+.hero p {
+  color: #aaa;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+main {
+  padding: 35px 7%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  font-size: 25px;
+}
+
+.game-count {
+  color: #999;
+  font-size: 13px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+#search {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 17px;
+  border-radius: 9px;
+  border: 1px solid #343449;
+  background: #171725;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+#search:focus {
+  border-color: #a78bfa;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter {
+  background: #191927;
+  color: #aaa;
+  border: 1px solid #343449;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter:hover,
+.filter.active {
+  background: #a78bfa;
+  color: #100c1c;
+  border-color: #a78bfa;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.game-card {
+  background: #171725;
+  border: 1px solid #29293b;
+  border-radius: 13px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  border-color: #a78bfa;
+}
+
+.game-art {
+  height: 135px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 55px;
+  background: linear-gradient(135deg, #30235a, #171725);
+}
+
+.game-info {
+  padding: 17px;
+}
+
+.game-info h3 {
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.game-info p {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.play-button {
+  display: block;
+  text-align: center;
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  padding: 11px;
+  background: #a78bfa;
+  color: #100c1c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.play-button:hover {
+  background: #c4b5fd;
+}
+
+.no-results {
+  display: none;
+  color: #999;
+  text-align: center;
+  padding: 50px 10px;
+  grid-column: 1 / -1;
+}
+
+.player {
+  display: none;
+  margin-top: 35px;
+  background: #171725;
+  border: 1px solid #343449;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.player-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.player-top h2 {
+  font-size: 18px;
+}
+
+.close-button {
+  background: #302b43;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+#game-frame {
+  width: 100%;
+  height: 75vh;
+  min-height: 450px;
+  border: 0;
+  background: #000;
+}
+
+footer {
+  padding: 30px 7%;
+  margin-top: 50px;
+  border-top: 1px solid #252538;
+  color: #777;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media(max-width: 600px) {
+  header {
+    padding: 0 5%;
+  }
+
+  .hero, main {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .header-label {
+    display: none;
+  }
+}
 </style>
 </head>
-<body>
-<header><div class="logo">SEMAG<span>6</span></div><div class="topnote">YOUR PERSONAL ARCADE</div></header>
-<main>
-<section class="hero">
-  <div class="eyebrow">WELCOME TO THE ARCADE</div>
-  <h1>PLAY SOMETHING.</h1>
-  <p>Your games. One place. Find something to play and jump straight in.</p>
-  <span class="pill">✦ &nbsp; YOUR GAME HUB</span>
-</section>
-<div class="toolbar">
-  <h2>Explore games</h2>
-  <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
-</div>
-<div class="filters">
-  <button class="filter active" data-filter="all">All games</button>
-  <button class="filter" data-filter="arcade">Arcade</button>
-  <button class="filter" data-filter="puzzle">Puzzle</button>
-  <button class="filter" data-filter="action">Action</button>
-  <button class="filter" data-filter="sports">Sports</button>
-</div>
-<section class="games-grid" aria-label="Games area">
-  <div class="game-card">
-    <h3>CWC Track</h3>
 
-    <iframe
-      src="https://cwctrack.cwcinc.dev/"
-      width="100%"
-      height="600"
-      style="border: none; border-radius: 12px;"
-      allowfullscreen>
-    </iframe>
+<body>
+
+<header>
+  <div class="logo">SEMAG<span>6</span></div>
+  <div class="header-label">YOUR GAME HUB</div>
+</header>
+
+<section class="hero">
+  <h1>PLAY <span>SOMETHING.</span></h1>
+  <p>Your games, all in one place.</p>
+</section>
+
+<main>
+
+  <div class="section-heading">
+    <h2>Explore Games</h2>
+    <span class="game-count" id="game-count"></span>
   </div>
-</section>
-</section>
+
+  <div class="controls">
+    <input
+      type="text"
+      id="search"
+      placeholder="Search games..."
+      oninput="filterGames()"
+    >
+  </div>
+
+  <div class="filters">
+    <button class="filter active" onclick="setCategory('All', this)">All games</button>
+    <button class="filter" onclick="setCategory('Arcade', this)">Arcade</button>
+    <button class="filter" onclick="setCategory('Racing', this)">Racing</button>
+    <button class="filter" onclick="setCategory('Sports', this)">Sports</button>
+    <button class="filter" onclick="setCategory('Puzzle', this)">Puzzle</button>
+    <button class="filter" onclick="setCategory('Other', this)">Other</button>
+  </div>
+
+  <br>
+
+  <div class="games-grid" id="games-grid">
+
+    <!-- GAME 1 -->
+    <div class="game-card" data-name="CWC Track" data-category="Racing">
+      <div class="game-art">🏎️</div>
+      <div class="game-info">
+        <h3>CWC Track</h3>
+        <p>Racing · Browser game</p>
+        <button class="play-button" onclick="openGame('CWC Track', 'https://cwctrack.cwcinc.dev/')">
+          Play game
+        </button>
+      </div>
+    </div>
+
+    <!-- ADD MORE GAMES HERE -->
+
+    <div class="no-results" id="no-results">
+      No games found. Try another search.
+    </div>
+
+  </div>
+
+  <div class="player" id="player">
+    <div class="player-top">
+      <h2 id="player-title">Game</h2>
+      <button class="close-button" onclick="closeGame()">Close game ✕</button>
+    </div>
+
+    <iframe id="game-frame" allowfullscreen></iframe>
+  </div>
+
 </main>
-<footer>SEMAG6 © 2026 · YOUR PERSONAL GAME HUB</footer>
+
+<footer>
+  SEMAG6 · YOUR GAME HUB
+</footer>
+
+<script>
+let currentCategory = "All";
+
+function setCategory(category, button) {
+  currentCategory = category;
+
+  document.querySelectorAll(".filter").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  filterGames();
+}
+
+function filterGames() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const cards = document.querySelectorAll(".game-card");
+
+  let visible = 0;
+
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const category = card.dataset.category;
+
+    const matchesSearch = name.includes(search);
+    const matchesCategory =
+      currentCategory === "All" || category === currentCategory;
+
+    if (matchesSearch && matchesCategory) {
+      card.style.display = "";
+      visible++;
+    } else {
+      card.style.display = "none";
+    }
+  });
+
+  document.getElementById("no-results").style.display =
+    visible === 0 ? "block" : "none";
+
+  document.getElementById("game-count").textContent =
+    visible + (visible === 1 ? " game" : " games");
+}
+
+function openGame(name, url) {
+  document.getElementById("player-title").textContent = name;
+  document.getElementById("game-frame").src = url;
+  document.getElementById("player").style.display = "block";
+
+  document.getElementById("player").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function closeGame() {
+  document.getElementById("game-frame").src = "";
+  document.getElementById("player").style.display = "none";
+}
+
+filterGames();
+</script>
+
 </body>
 </html>
