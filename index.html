@@ -21,6 +21,7 @@ body {
 }
 
 /* CALCULATOR LOGIN */
+
 #login-screen {
   position: fixed;
   inset: 0;
@@ -351,7 +352,7 @@ footer {
 
 <body>
 
-<!-- CALCULATOR LOGIN SCREEN -->
+<!-- CALCULATOR LOGIN -->
 <div id="login-screen">
   <div class="calculator">
     <div class="calculator-title">CALCULATOR</div>
@@ -377,7 +378,7 @@ footer {
       <button onclick="addCalc('1')">1</button>
       <button onclick="addCalc('2')">2</button>
       <button onclick="addCalc('3')">3</button>
-      <button class="equals" onclick="checkCalc()" style="grid-row: span 2;">=</button>
+      <button class="equals" onclick="calculate()" style="grid-row: span 2;">=</button>
 
       <button onclick="addCalc('0')" style="grid-column: span 2;">0</button>
       <button onclick="addCalc('.')">.</button>
@@ -440,6 +441,18 @@ footer {
 
     <!-- ADD MORE GAMES HERE -->
 
+<div class="game-card" data-name="Google Snake" data-category="Arcade">
+  <div class="game-art">🐍</div>
+  <div class="game-info">
+    <h3>Google Snake</h3>
+    <p>Arcade · Classic</p>
+    <button class="play-button"
+      onclick="openGame('Google Snake','https://www.google.com/fbx?fbx=snake_arcade')">
+      Play game
+    </button>
+  </div>
+</div>
+
     <div class="no-results" id="no-results">
       No games found. Try another search.
     </div>
@@ -463,44 +476,75 @@ footer {
 
 <script>
 
-/* CALCULATOR LOGIN */
-let calcValue = "";
+/* CALCULATOR FUNCTIONS */
+
+let calcExpression = "";
+let calcFinished = false;
+
+function updateDisplay(value) {
+  document.getElementById("calc-display").value = value || "0";
+}
 
 function addCalc(value) {
-  if (calcValue === "Error" || calcValue === "Incorrect") {
-    calcValue = "";
+  const message = document.getElementById("login-message");
+  message.textContent = "";
+
+  if (calcFinished) {
+    calcExpression = "";
+    calcFinished = false;
   }
 
-  calcValue += value;
-  document.getElementById("calc-display").value = calcValue || "0";
-  document.getElementById("login-message").textContent = "";
+  calcExpression += value;
+  updateDisplay(calcExpression.replace(/\*/g, "×").replace(/\//g, "÷"));
 }
 
 function clearCalc() {
-  calcValue = "";
-  document.getElementById("calc-display").value = "0";
+  calcExpression = "";
+  calcFinished = false;
+  updateDisplay("0");
   document.getElementById("login-message").textContent = "";
 }
 
 function deleteCalc() {
-  calcValue = calcValue.slice(0, -1);
-  document.getElementById("calc-display").value = calcValue || "0";
+  if (calcFinished) {
+    clearCalc();
+    return;
+  }
+
+  calcExpression = calcExpression.slice(0, -1);
+  updateDisplay(calcExpression.replace(/\*/g, "×").replace(/\//g, "÷"));
 }
 
-function checkCalc() {
-  if (calcValue === "136") {
+function calculate() {
+  const message = document.getElementById("login-message");
+
+  // Special unlock combination
+  if (calcExpression === "136") {
     document.getElementById("login-screen").style.display = "none";
-  } else {
-    document.getElementById("calc-display").value = "Incorrect";
-    document.getElementById("login-message").textContent = "Incorrect result";
+    return;
+  }
 
-    calcValue = "Incorrect";
+  try {
+    if (!calcExpression || !/^[0-9+\-*/.() ]+$/.test(calcExpression)) {
+      throw new Error("Invalid");
+    }
 
-    setTimeout(() => {
-      if (document.getElementById("login-screen").style.display !== "none") {
-        clearCalc();
-      }
-    }, 1000);
+    const result = Function('"use strict"; return (' + calcExpression + ')')();
+
+    if (!Number.isFinite(result)) {
+      throw new Error("Invalid");
+    }
+
+    calcExpression = String(Number(result.toFixed(10)));
+    updateDisplay(calcExpression);
+    calcFinished = true;
+    message.textContent = "";
+
+  } catch (error) {
+    updateDisplay("Error");
+    message.textContent = "Invalid calculation";
+    calcExpression = "";
+    calcFinished = true;
   }
 }
 
