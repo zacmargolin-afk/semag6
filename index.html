@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b14">
+<title>SEMAG6 — Play something.</title>
+<style>
+:root{--bg:#090b14;--panel:#121626;--line:#272e45;--text:#f4f5ff;--muted:#9aa3bd;--purple:#8c72ff;--cyan:#55e4d2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#29204e 0%,transparent 48%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}
+header{max-width:1150px;margin:auto;padding:25px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:950;letter-spacing:-2px;font-size:27px}.logo span{color:var(--purple)}.topnote{font-size:12px;color:var(--muted);letter-spacing:2px}
+main{max-width:1150px;margin:auto;padding:35px 24px 80px}.hero{padding:46px 38px;border:1px solid #383052;border-radius:25px;background:linear-gradient(120deg,rgba(124,91,255,.22),rgba(37,202,190,.08)),#111525;position:relative;overflow:hidden}
+.hero:after{content:"6";position:absolute;right:55px;top:-65px;font-size:280px;font-weight:1000;color:#ffffff08;pointer-events:none}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:3px}.hero h1{font-size:clamp(38px,7vw,68px);line-height:.98;letter-spacing:-3px;margin:15px 0}.hero p{color:#b9c0d5;max-width:480px;line-height:1.6;margin-bottom:25px}
+.pill{display:inline-flex;align-items:center;border:1px solid #4b426c;border-radius:99px;padding:9px 14px;color:#d8d0ff;font-size:12px;font-weight:700}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:34px 0 20px;flex-wrap:wrap}.toolbar h2{font-size:22px;margin:0;letter-spacing:-.7px}
+input{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 15px;color:var(--text);font:inherit;outline:none;width:min(100%,260px)}input:focus{border-color:var(--purple)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.filter{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 13px;border-radius:99px;cursor:pointer;font-weight:700;font-size:12px}.filter.active{background:#30265a;border-color:#7963da;color:#fff}
+.empty{min-height:250px;border:1px dashed #343b55;border-radius:18px;background:#10142199;display:grid;place-items:center;text-align:center;padding:35px}
+.emptyicon{font-size:36px;margin-bottom:12px}.empty h3{margin:0 0 8px;font-size:18px}.empty p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;max-width:390px}
+footer{text-align:center;color:#69728b;font-size:11px;padding:30px}
+@media(max-width:600px){header{padding:18px}.topnote{display:none}main{padding:20px 16px 60px}.hero{padding:32px 23px}.hero:after{right:8px;font-size:190px}}
+</style>
+</head>
+<body>
+<header><div class="logo">SEMAG<span>6</span></div><div class="topnote">YOUR PERSONAL ARCADE</div></header>
+<main>
+<section class="hero">
+  <div class="eyebrow">WELCOME TO THE ARCADE</div>
+  <h1>PLAY SOMETHING.</h1>
+  <p>Your games. One place. Find something to play and jump straight in.</p>
+  <span class="pill">✦ &nbsp; YOUR GAME HUB</span>
+</section>
+<div class="toolbar">
+  <h2>Explore games</h2>
+  <input id="search" type="search" placeholder="Search games..." aria-label="Search games">
+</div>
+<div class="filters">
+  <button class="filter active" data-filter="all">All games</button>
+  <button class="filter" data-filter="arcade">Arcade</button>
+  <button class="filter" data-filter="puzzle">Puzzle</button>
+  <button class="filter" data-filter="action">Action</button>
+  <button class="filter" data-filter="sports">Sports</button>
+</div>
+<section class="empty" aria-label="Empty games area">
+  <div>
+    <div class="emptyicon">🎮</div>
+    <h3>Your games will go here</h3>
+    <p>Semag6 is ready for your games. Add your own game cards and embed them here whenever you're ready.</p>
+  </div>
+</section>
+</main>
+<footer>SEMAG6 © 2026 · YOUR PERSONAL GAME HUB</footer>
+</body>
+</html>
